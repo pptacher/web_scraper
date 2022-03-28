@@ -1,7 +1,7 @@
 import os
 import re
 import uuid
-import sys, traceback, time
+import sys, traceback, time, datetime
 
 from urllib.request import urlopen, Request
 import json
@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
 # convert cookies in html message to json format.
+
 def parse_dict_cookies(cookies):
     result = {}
     for index, item in enumerate(cookies.split(';')):
@@ -71,8 +72,13 @@ while "Merci de renouveler votre demande dans quelques minutes" in html or \
     html = urlopen(req).read().decode('utf-8')
     time.sleep(poll_period)
 
+with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
+    file.write(html)
 parsed_html = BeautifulSoup(html,features="lxml")
-url1 = parsed_html.find('a', id=re.compile("appointment_first_slot$")).get('href')
+a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
+url1 = a_element['href']
+date_time = a_element.contents
+
 req1 = Request(url1, data=jsonData, headers={
     "content-type" : "application/json",
     "Cookie" : cookies
@@ -120,16 +126,15 @@ except NoSuchElementException as e:
     quit()
 
 title = "Success"
-message = "Slot available."
+message = f"Slot available on {date_time}."
 
 command = f'''
 osascript -e 'display notification "{message}" with title "{title}"'
 '''
 os.system(command)
 
-current_url = driver.current_url
 command = f'''
-osascript sendMessage.scpt {data["phone"]} {current_url}
+osascript sendMessage.scpt {data["phone"]} "Book available slot on {date_time}."
 '''
 os.system(command)
 
