@@ -23,6 +23,8 @@ python3 python_request.py
 
 5. Done.
 
+Retry if you get an error.
+
 ## Requirements
 
 - python3 with selenium.
