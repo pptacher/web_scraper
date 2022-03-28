@@ -1,5 +1,5 @@
 # book an appointment for id renewal.
-You live in Paris and need to have your ID card or passport issued. You will have to go to the site [paris.fr](https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmenttitresearch#). Currently, due to high demand, it can be very hard to get a slot. This python script can help you get any appointment as soon as it becomes available.
+You live in Paris and need to have your ID card or passport issued. You will have to go to the site [paris.fr](https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmenttitresearch#). Currently, due to high demand, it can be very hard to get a slot. This simple python script can help you get any appointment as soon as it becomes available.
 
 ## Usage
 
