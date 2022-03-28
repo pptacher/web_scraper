@@ -21,7 +21,7 @@ python3 python_request.py
 
 4. Solve the captcha on the webpage opened by selenium in safari.
 
-5.Done.
+5. Done.
 
 ## Requirements
 
