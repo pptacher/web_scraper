@@ -19,7 +19,7 @@ python3 python_request.py
 
 3. When an availability is posted on the site, you should receive a macOS notification and iMessage on your phone.
 
-4. Solve the captcha on the webpage opened by selenium in safari.
+4. Solve the captcha on the webpage opened in safari browser.
 
 5. Done.
 
