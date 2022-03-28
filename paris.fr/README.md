@@ -27,6 +27,6 @@ Retry if you get an error.
 
 ## Requirements
 
-- python3 with selenium.
+- python3 with selenium and BeautifulSoup packages.
 
 - macOS with safari.
