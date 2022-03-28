@@ -72,8 +72,6 @@ while "Merci de renouveler votre demande dans quelques minutes" in html or \
     html = urlopen(req).read().decode('utf-8')
     time.sleep(poll_period)
 
-with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
-    file.write(html)
 parsed_html = BeautifulSoup(html,features="lxml")
 a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
 url1 = a_element['href']
