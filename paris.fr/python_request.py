@@ -15,7 +15,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
 # convert cookies in html message to json format.
-
 def parse_dict_cookies(cookies):
     result = {}
     for index, item in enumerate(cookies.split(';')):
