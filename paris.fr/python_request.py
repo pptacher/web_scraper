@@ -134,7 +134,7 @@ title = "Success"
 message = "Slot available."
 
 command = f'''
-osascript -e 'display notification \"{message}\" with title \"{title}\"'
+osascript -e 'display notification "{message}" with title "{title}"'
 '''
 os.system(command)
 
