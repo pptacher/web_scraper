@@ -3,7 +3,7 @@ You live in Paris and need to have your ID card or passport issued. You will hav
 
 ## Usage
 
-0. Activate safari automation with (cf. [Apple doc](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari))
+0. In terminal, activate safari automation with (cf. [Apple doc](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari))
 
 ```
 safaridriver --enable
