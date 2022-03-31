@@ -34,6 +34,11 @@ def parse_dict_cookies(cookies):
         result[name] = value
     return result
 
+def processing_flush(n, index=10):
+    sys.stdout.write(f"\r\033[1mPolling the server\033[0m %s" % (index * " "))
+    sys.stdout.write(f"\r\033[1mPolling the server\033[0m %s" % ((n % index)* "."))
+    sys.stdout.flush()
+
 with open("data.json", "r") as file:
     data = json.load(file)
 
@@ -56,8 +61,9 @@ while True:
     parsed_cookies = parse_dict_cookies(cookies)
     driver = webdriver.Safari()
     driver.add_cookie(parsed_cookies)
-    poll_period = 0.2 #time between http requests for availability to server in seconds.
-    print(f"\033[1mPolling the server...\033[0m")
+    poll_period = 0.2 #time before sending new http request for availability to server in seconds.
+    #print(f"\033[1mPolling the server...\033[0m")
+    i = 0
 
     while "Merci de renouveler votre demande dans quelques minutes" in html or \
                         "Tous les rendez-vous ont" in  html or \
@@ -69,12 +75,14 @@ while True:
                         "Maintenance" in html or \
                         "Le 3975 n’est pas en mesure de vous proposer des rendez-vous" in  html or \
                         "Les  5 500" in html:
+        processing_flush(i)
         time.sleep(poll_period)
         req = Request(url, data=jsonData, headers={
                         "content-type" : "application/json",
                         "Cookie" : cookies
                         })
         html = urlopen(req).read().decode('utf-8')
+        i = i + 1
 
     parsed_html = BeautifulSoup(html,features="lxml")
     a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
