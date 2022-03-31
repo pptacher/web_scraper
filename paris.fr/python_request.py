@@ -61,7 +61,7 @@ while True:
     parsed_cookies = parse_dict_cookies(cookies)
     driver = webdriver.Safari()
     driver.add_cookie(parsed_cookies)
-    poll_period = 0.2 #time before sending new http request for availability to server in seconds.
+    poll_period = 0.5 #time before sending new http request for availability to server in seconds.
     #print(f"\033[1mPolling the server...\033[0m")
     i = 0
 
@@ -83,7 +83,7 @@ while True:
                         })
         html = urlopen(req).read().decode('utf-8')
         i = i + 1
-
+    print('\n')
     parsed_html = BeautifulSoup(html,features="lxml")
     a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
     url1 = a_element['href']
