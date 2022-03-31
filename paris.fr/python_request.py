@@ -57,6 +57,7 @@ while True:
     driver = webdriver.Safari()
     driver.add_cookie(parsed_cookies)
     poll_period = 0.2 #time between http requests for availability to server in seconds.
+    print(f"\033[1mPolling the server...\033[0m")
 
     while "Merci de renouveler votre demande dans quelques minutes" in html or \
                         "Tous les rendez-vous ont" in  html or \
@@ -123,8 +124,11 @@ while True:
         #with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
             #file.write(driver.page_source)
         print(traceback.format_exc())
+        h_element = parsed_html.find('h3', class_='text-warning')
+        if h_element is not None:
+            print('\033[93m' + h_element.string + '\033[0m')
         driver.close()
-        #quit()
+            #quit()
         print(f"\033[1mRetrying...\033[0m")
         continue
 
