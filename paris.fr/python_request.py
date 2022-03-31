@@ -122,9 +122,6 @@ while True:
         elem = driver.find_element(By.NAME,"save")
         elem.send_keys(Keys.RETURN)
 
-        WebDriverWait(driver, 10).until(
-            lambda wd: wd.current_url != old_url
-        )
         time.sleep(0.5)
         #parsed_html = BeautifulSoup(driver.page_source,features="lxml")
         #input_element = parsed_html.find('h2', class_="current stepTitle")
@@ -132,7 +129,6 @@ while True:
             #break#
 
         o = urlparse(driver.current_url)
-        print(str(o))
         if o.fragment == 'step4':
             break
 
