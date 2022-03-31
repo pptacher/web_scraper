@@ -4,6 +4,7 @@ import uuid
 import sys, traceback, time, datetime
 
 from urllib.request import urlopen, Request
+from urllib.parse import urlparse, parse_qs
 import json
 from bs4 import BeautifulSoup
 
@@ -37,7 +38,6 @@ with open("data.json", "r") as file:
     data = json.load(file)
 
 url = "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmentsearch&view=search&category=titres"
-
 
 phony_data = {
     "name" : "username",
@@ -79,7 +79,8 @@ while True:
     parsed_html = BeautifulSoup(html,features="lxml")
     a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
     url1 = a_element['href']
-    date_time = re.sub("[\[\]']",'',str(a_element.contents))
+    #date_time = re.sub("[\[\]']",'',str(a_element.contents))
+    date_time = a_element.string
 
     req1 = Request(url1, data=jsonData, headers={
     "content-type" : "application/json",
@@ -117,22 +118,36 @@ while True:
         elem.clear()
         elem.send_keys(data["email"])
 
+        old_url = driver.current_url
         elem = driver.find_element(By.NAME,"save")
         elem.send_keys(Keys.RETURN)
+
+        WebDriverWait(driver, 10).until(
+            lambda wd: wd.current_url != old_url
+        )
+        #time.sleep(1)
+        #parsed_html = BeautifulSoup(driver.page_source,features="lxml")
+        #input_element = parsed_html.find('h2', class_="current stepTitle")
+        #if input_element is not None and input_element['id'] == "step4":
+            #break#
+
+        o = urlparse(driver.current_url)
+        #print(str(o))
+        if o.fragment == 'step4':
+            break
 
     except NoSuchElementException as e:
         #with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
             #file.write(driver.page_source)
         print(traceback.format_exc())
-        h_element = parsed_html.find('h3', class_='text-warning')
-        if h_element is not None:
-            print('\033[93m' + h_element.string + '\033[0m')
-        driver.close()
-            #quit()
-        print(f"\033[1mRetrying...\033[0m")
-        continue
 
-    break
+    h_element = parsed_html.find('h3', class_='text-warning')
+    if h_element is not None:
+        print('\033[93m' + h_element.string + '\033[0m')
+    driver.close()
+    #quit()
+    print(f"\033[1mRetrying...\033[0m")
+
 
 title = "Success"
 message = "Slot available."
