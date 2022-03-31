@@ -121,12 +121,13 @@ while True:
         elem.send_keys(Keys.RETURN)
 
     except NoSuchElementException as e:
-        with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
-            file.write(driver.page_source)
-            print(traceback.format_exc())
-            driver.close()
-            #quit()
-            continue
+        #with open(str(uuid.uuid4()), encoding="utf-8", mode="w") as file:
+            #file.write(driver.page_source)
+        print(traceback.format_exc())
+        driver.close()
+        #quit()
+        print(f"\033[1mRetrying...\033[0m")
+        continue
 
     break
 
@@ -145,6 +146,9 @@ command = f'''
 osascript sendMessage.scpt {data["phone"]} "{message}"
 '''
 os.system(command)
+input("Press Enter after solving CAPTCHA.")   # wait for user to solve captcha.
 
-time.sleep(300) # wait for user to solve captcha.
-driver.close()
+try:
+    driver.close()
+except:
+    pass
