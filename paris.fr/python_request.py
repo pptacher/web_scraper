@@ -97,11 +97,6 @@ while True:
     #date_time = re.sub("[\[\]']",'',str(a_element.contents))
     date_time = a_element.text
 
-    req1 = Request(url1, data=jsonData, headers={
-    "content-type" : "application/json",
-    "Cookie" : cookies
-    })
-
     driver.get(url1)
     WebDriverWait(driver, 10).until(
         lambda wd: wd.execute_script("return document.readyState") == "complete"

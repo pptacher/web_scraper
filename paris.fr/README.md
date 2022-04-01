@@ -9,7 +9,7 @@ You live in Paris and need to have your ID card or passport issued. You will hav
 safaridriver --enable
 ```
 
-1. Fill in the file data.json with your personal information.
+1. Fill in the file data.json with your personal information. 
 
 2. Launch the script:
 
