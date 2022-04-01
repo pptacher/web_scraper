@@ -1,5 +1,5 @@
 # book an appointment for id renewal.
-You live in Paris and need to have your ID card or passport issued. You will have to go to the site [paris.fr](https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmenttitresearch#). Currently, due to high demand, it can be very hard to get a slot (cf. this article [bfm](https://www.bfmtv.com/paris/carte-d-identite-passeport-embouteillage-a-paris-et-en-ile-de-france-pour-obtenir-un-rendez-vous_AV-202203300255.html)). This simple python script can help you get any appointment as soon as it becomes available, within usually just a couple of minutes if you are lucky enough.
+You live in Paris and need to have your ID card or passport issued. You will have to go to the site [paris.fr](https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmenttitresearch#). Currently, due to high demand (as claimed by the relevant authorities), it can be very hard to get an appointment in city hall to start the ID issuing process (cf. this article [bfm](https://www.bfmtv.com/paris/carte-d-identite-passeport-embouteillage-a-paris-et-en-ile-de-france-pour-obtenir-un-rendez-vous_AV-202203300255.html)). This simple python script can help you get any appointment as soon as it becomes available, within usually just a couple of minutes if you are lucky enough.
 
 ## Usage
 
@@ -17,7 +17,7 @@ safaridriver --enable
 python3 python_request.py
 ```
 
-3. When an availability is posted on the site and booked for you, you should receive a macOS notification and iMessage on your phone.
+3. When an availability is posted on the site and waiting for you to book, you should receive a macOS notification and iMessage on your phone.
 
 4. Solve the captcha on the webpage opened in safari browser.
 
@@ -27,6 +27,8 @@ Retry if you get an error.
 
 ## Requirements
 
-- python3 with selenium and BeautifulSoup packages.
+- [python3](https://www.python.org) with selenium and BeautifulSoup packages.
 
 - macOS with safari.
+
+Tested on Macbook pro 16" 2021 with MacOS Monterey 12.0.1, Python 3.9.10.

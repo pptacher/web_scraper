@@ -4,7 +4,7 @@ import uuid
 import sys, traceback, time, datetime
 
 from urllib.request import urlopen, Request
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, urlencode
 import json
 from bs4 import BeautifulSoup
 
@@ -86,9 +86,16 @@ while True:
     print('\n')
     parsed_html = BeautifulSoup(html,features="lxml")
     a_element = parsed_html.find('a', id=re.compile("appointment_first_slot$"))
-    url1 = a_element['href']
+    o = urlparse(a_element['href'])
+    dict = parse_qs(o.query)
+    dict.pop('anchor',None)
+    dict['anchor'] = ''
+    url1 = o._replace(query=urlencode(dict,doseq=True)).geturl() + "#step3"
+    #print(url1)
+
+    #url1 = a_element['href'] + "&anchor=#step3"
     #date_time = re.sub("[\[\]']",'',str(a_element.contents))
-    date_time = a_element.string
+    date_time = a_element.text
 
     req1 = Request(url1, data=jsonData, headers={
     "content-type" : "application/json",
@@ -131,7 +138,7 @@ while True:
         elem.send_keys(Keys.RETURN)
 
         time.sleep(0.5)
-        #parsed_html = BeautifulSoup(driver.page_source,features="lxml")
+        parsed_html = BeautifulSoup(driver.page_source,features="lxml")
         #input_element = parsed_html.find('h2', class_="current stepTitle")
         #if input_element is not None and input_element['id'] == "step4":
             #break#
@@ -145,9 +152,10 @@ while True:
             #file.write(driver.page_source)
         print(traceback.format_exc())
 
-    h_element = parsed_html.find('h3', class_='text-warning')
+    h_element = parsed_html.find('div', class_="alert alert-danger")
     if h_element is not None:
-        print('\033[93m' + h_element.string + '\033[0m')
+        print('\033[93m' + h_element.text + '\033[0m')
+
     driver.close()
     #quit()
     print(f"\033[1mRetrying...\033[0m")
