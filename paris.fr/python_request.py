@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
-# convert cookies in html message to json format.
+# convert cookies in html response message to json format as described in RFC6265. TO DO: handle multiple cookies.
 def parse_dict_cookies(cookies):
     result = {}
     for index, item in enumerate(cookies.split(';')):
