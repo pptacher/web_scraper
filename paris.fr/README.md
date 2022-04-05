@@ -39,11 +39,11 @@ python3 python_request_nb.py
 
 2. When an availability is posted on the site and waiting for you to book, you should receive a macOS notification and iMessage on your phone.
 
-3. Solve the displayed captcha.
+3. Solve the displayed captcha in the terminal.
 
 4. Done.
 
-Retry if you get an error. You should better sign out from your paris.fr account if you have one, because that may change the flow of the booking. There are more availabilities during business hours. 
+Retry if you get an error. You should better sign out from your paris.fr account if you have one, because that may change the flow of the booking. There are more availabilities during business hours.
 
 ## Requirements
 
