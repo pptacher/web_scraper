@@ -43,7 +43,7 @@ python3 python_request_nb.py
 
 4. Done.
 
-Retry if you get an error.
+Retry if you get an error. You should better sign out from your paris.fr account if you have one, because that may change the flow of the booking.
 
 ## Requirements
 
