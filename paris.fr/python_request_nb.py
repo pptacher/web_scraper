@@ -201,6 +201,7 @@ while True:
         with open(filename, mode="wb") as file:
             file.write(p.read())
 
+
     command = f'''
     open {filename}
     '''
@@ -240,10 +241,7 @@ while True:
     html = response.read().decode('utf-8')
     parsed_html = BeautifulSoup(html,features="lxml")
 
-    command = f'''
-    rm {filename}
-    '''
-    os.system(command)
+    os.remove(filename)
 
     if dict.get('view') == ['getAppointmentCreated']:
         break
