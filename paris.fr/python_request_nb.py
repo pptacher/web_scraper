@@ -206,6 +206,7 @@ while True:
     '''
     os.system(command)
 
+    #TO DO: let user get another captcha.
     captcha = input("Enter captcha:")
 
     fields = {
