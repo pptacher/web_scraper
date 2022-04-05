@@ -3,7 +3,7 @@ You live in Paris and need to have your ID card or passport issued. You will hav
 
 ## Usage
 
-#using Browser automation.
+### using Browser automation.
 
 0. In terminal, activate safari automation with (cf. [Apple doc](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari))
 
@@ -27,7 +27,7 @@ python3 python_request.py
 
 Retry if you get an error.
 
-#pure urllib version, using POST requests and no browser.
+### pure urllib version, using POST requests and no browser.
 
 0. Fill in the file data.json with your personal information.
 
