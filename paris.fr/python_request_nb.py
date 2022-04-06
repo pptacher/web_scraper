@@ -31,25 +31,6 @@ def encode_multipart_formdata(fields):
     content_type = f'multipart/form-data; boundary={boundary}'
     return content_type, body
 
-# convert cookies in html response message to json format as described in RFC6265. TO DO: handle multiple cookies.
-def parse_dict_cookies(cookies):
-    result = {}
-    for index, item in enumerate(cookies.split(';')):
-        if index == 0:
-            name, value = item.split('=', 1)
-            result['name'] = name
-            result['value'] = value
-            continue
-        item = item.strip()
-        if not item:
-            continue
-        if '=' not in item:
-            result[item] = True
-            continue
-        name, value = item.split('=', 1)
-        result[name] = value
-    return result
-
 def processing_flush(n, index=10):
     sys.stdout.write(f"\r\033[1mPolling the server\033[0m %s" % (index * " "))
     sys.stdout.write(f"\r\033[1mPolling the server\033[0m %s" % ((n % index)* "."))
@@ -75,8 +56,6 @@ while True:
         html = response.read().decode('utf-8')
         cookies = response.getheader("Set-Cookie")
 
-    cookie1, cookie2 = cookies.split(',',1)
-    parsed_cookies = [parse_dict_cookies(cookie1),parse_dict_cookies(cookie2)]
     poll_period = 0.0 #time before sending new http request for availability to server in seconds.
     i = 0
 
