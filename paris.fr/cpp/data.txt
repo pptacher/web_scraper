@@ -1,0 +1,5 @@
+lastname	ettom
+firstname	olive
+email		john@hotmail.com
+phone		0612345678
+postalcode	94300
