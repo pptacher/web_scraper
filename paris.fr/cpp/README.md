@@ -47,4 +47,4 @@ Retry if you get an error. You should better sign out from your paris.fr account
 
 - macOS.
 
-Tested on Macbook pro 16" 2021 with MacOS Monterey 12.0.1.
+Tested on Macbook pro 16" 2021 with MacOS Monterey 12.0.1, c++ compiler: AppleClang 13.0.0.

@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <unordered_map>
 
 using std::string;
 
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
   std::ifstream file;
   file.open("../data.txt");
   string line;
-  std::map<string, string> hmap;
+  std::unordered_map<string, string> hmap;
   if(file.is_open()){
     while(std::getline(file, line)) {
       std::istringstream iss(line);
@@ -105,7 +106,6 @@ int main(int argc, char *argv[])
     }
     std::cout << "\r\e[1mPolling the server\e[0m " << std::setw(20) << std::left << std::string(20,' ');
     std::cout << "\r\e[1mPolling the server\e[0m " << std::setw(i) << std::left << std::string(i,'.')  << std::flush;
-
 
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
