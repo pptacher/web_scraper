@@ -45,6 +45,6 @@ Retry if you get an error. You should better sign out from your paris.fr account
 
 - [Google re2](https://github.com/google/re2) for parsing web page using regular expressions.
 
-- macOS with safari.
+- macOS.
 
 Tested on Macbook pro 16" 2021 with MacOS Monterey 12.0.1.

@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 {
 
   std::ifstream file;
-  file.open("data.txt");
+  file.open("../data.txt");
   string line;
   std::map<string, string> hmap;
   if(file.is_open()){
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     }
   }
   else{
-    fprintf(stderr, "Failed to open data.txt.\n");
+    fprintf(stderr, "Failed to open file \'data.txt\'.\n");
     exit(EXIT_FAILURE);
   }
 
@@ -106,6 +106,7 @@ int main(int argc, char *argv[])
     std::cout << "\r\e[1mPolling the server\e[0m " << std::setw(20) << std::left << std::string(20,' ');
     std::cout << "\r\e[1mPolling the server\e[0m " << std::setw(i) << std::left << std::string(i,'.')  << std::flush;
 
+
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
   } while (RE2::PartialMatch(buffer,"(Merci de renouveler votre demande dans quelques minutes)|"
@@ -118,6 +119,8 @@ int main(int argc, char *argv[])
                                     "Maintenance|"
                                     "Le 3975 n’est pas en mesure de vous proposer des rendez-vous|"
                                     "Les  5 500" ));
+
+  std::cout << std::endl;
 
   string link, date;
   RE2::PartialMatch(buffer, R"(<\s*a\s.*href=\"([[:ascii:]]*)\".*id=\".*appointment_first_slot\"\s*>([[:alnum:]\s:]*)</a>)",&link, &date);
