@@ -7,3 +7,6 @@ list(APPEND CMAKE_CXX_FLAGS "-std=c++17")
 
 add_executable(booking.bin booking.cc)
 target_link_libraries(booking.bin curl re2)
+
+add_executable(booking_mt.bin booking_mt.cc)
+target_link_libraries(booking_mt.bin curl re2)
