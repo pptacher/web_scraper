@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
   unsigned int nt = argc>1 ? atoi(argv[0]):std::thread::hardware_concurrency();
   std::vector<std::thread> threads;
 
-  for (uint j=0; j<1; ++j) {
+  for (uint j=0; j<nt; ++j) {
     threads.push_back(std::thread(book));
   }
 
