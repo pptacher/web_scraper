@@ -36,7 +36,7 @@ For the multithreaded version,
 ```
 ./booking_mt.bin n
 ```
-where n is an integer representing the number of threads. If not given in argument, the number of threads is determined at runtime. If you want to be able to book several appointments simultaneously, your email provider must support aliases like john+1234@gmail.com.
+where n is an integer representing the number of threads. If not given in argument, the number of threads is determined at runtime. If you want to be able to book several appointments simultaneously, using only 1 email address, your email provider must support aliases like john+1234@gmail.com (eg. google, outlook).
 
 6. When an availability is posted on the site and waiting for you to book, solve the captcha which appears in the terminal.
 
