@@ -15,13 +15,15 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
+#include <unordered_set>
 #include <mutex>
 
 using std::string;
 
-std::mutex output_mutex;
+std::mutex output_mutex, hash_table_mutex;
 
 std::unordered_map<string, string> hmap;
+std::unordered_set<string> hash_table;
 
 //  libcurl write callback function
 static int writer(char *data, size_t size, size_t nmemb, std::string *writerData)
@@ -37,6 +39,8 @@ static int writer(char *data, size_t size, size_t nmemb, std::string *writerData
 void book(){
   CURL *curl = NULL;
   CURLcode code;
+
+
 
   char errorBuffer[CURL_ERROR_SIZE];
   std::string buffer;
@@ -58,6 +62,8 @@ void book(){
   for (size_t i = 0; i < 16; i++) {
     rdstring.push_back(alphanum[std::rand()/((RAND_MAX + 1u)/62)]);
   }
+
+  while( true ){
 
   curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errorBuffer);
   curl_easy_setopt(curl, CURLOPT_URL, "https://teleservices.paris.fr/rdvtitres/jsp/site/Portal.jsp?page=appointmentsearch&view=search&category=titres");
@@ -111,11 +117,20 @@ void book(){
                                     "Le 3975 n’est pas en mesure de vous proposer des rendez-vous|"
                                     "Les  5 500" ));
 
-  std::cout << std::endl;
+
 
   string link, date;
   RE2::PartialMatch(buffer, R"(<\s*a\s.*href=\"([[:ascii:]]*)\".*id=\".*appointment_first_slot\"\s*>([[:alnum:]\s:]*)</a>)",&link, &date);
-
+  {
+    std::lock_guard g(hash_table_mutex);
+    auto it = hash_table.find(date);
+    if ( it != hash_table.end() )  {
+      continue;
+    }
+    else{
+      hash_table.insert(date);
+    }
+  }
   buffer.clear();
 
   auto it = link.find("step3");
@@ -227,8 +242,12 @@ void book(){
     {
       std::lock_guard guard(output_mutex);
       std::system(command);
-      std::cout << std::this_thread::get_id() << '\t' << date << ' ' << filename << '\n' << '\t' << "Enter Captcha: ";
+      std::cout << std::this_thread::get_id() << '\t' << date << ' ' << filename << '\n' << '\t' << "Enter Captcha (:q to discard): ";
       std::cin >> captcha;
+    }
+
+    if(captcha == ":q") {
+      break;
     }
 
 
@@ -298,6 +317,8 @@ void book(){
 
   }
 
+  }
+
   curl_easy_cleanup(curl);
 
 }
@@ -327,7 +348,7 @@ int main(int argc, char *argv[])
 
   curl_global_init(CURL_GLOBAL_DEFAULT);
 
-  unsigned int nt = argc>1 ? atoi(argv[0]):std::thread::hardware_concurrency();
+  unsigned int nt = argc>1 ? std::min((uint)atoi(argv[1]), std::thread::hardware_concurrency()):std::thread::hardware_concurrency();
   std::vector<std::thread> threads;
 
   for (uint j=0; j<nt; ++j) {
