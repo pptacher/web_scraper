@@ -361,6 +361,8 @@ int main(int argc, char *argv[])
     threads.push_back(std::thread(book));
   }
 
+  std::cout << "Runnning with " << nt << " treads." << std::endl;
+
   book();
 
   for (auto& th : threads) {
