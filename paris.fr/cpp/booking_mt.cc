@@ -117,7 +117,13 @@ void book(){
                                     "Le 3975 n’est pas en mesure de vous proposer des rendez-vous|"
                                     "Les  5 500" ));
 
+  //printf("%s\n", buffer.c_str());
+  long response_code;
+  curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
 
+  if (response_code != 200) {
+    continue;
+  }
 
   string link, date;
   RE2::PartialMatch(buffer, R"(<\s*a\s.*href=\"([[:ascii:]]*)\".*id=\".*appointment_first_slot\"\s*>([[:alnum:]\s:]*)</a>)",&link, &date);
@@ -246,6 +252,7 @@ void book(){
       std::cin >> captcha;
     }
 
+    remove(filename);
     if(captcha == ":q") {
       break;
     }
@@ -300,7 +307,6 @@ void book(){
 
     CURLcode res = curl_easy_perform(curl);
 
-    remove(filename);
     //printf("%s\n", buffer.c_str());
 
     if ( res == CURLE_OK ) {
